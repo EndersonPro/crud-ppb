@@ -33,6 +33,21 @@
                                 </td>
                                 <td>
 
+                                <% if(LenguajesPersonas) {%>
+                                    <% for(var j = 0; j < LenguajesPersonas.length; j++){%>
+                                        <% if(LenguajesPersonas[j].idPersonas == Personas[i].idPersonas) {%>
+                                            
+                                            <span class="badge badge-dark">
+                                                <%= LenguajesPersonas[j].nombre %>
+                                            </span>
+
+                                        <%}%>                                        
+                                    <%}%>
+                                <%}%>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-info">Editar</button>
+                                    <button type="button" class="btn btn-danger">Eliminar</button>
                                 </td>
                             </tr>
                         <% } %>
