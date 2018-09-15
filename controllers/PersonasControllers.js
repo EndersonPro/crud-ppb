@@ -1,14 +1,15 @@
 const PersonasController = {}
 
+var Personas,
+    Lenguajes,
+    LenguajesPersonas;
+
 PersonasController.list = (req, res, next) => {
 
     let sql = 'select p.idPersonas, p.nombres, l.nombre from Personas p join Personas_has_Lenguajes pl using(idPersonas) join Lenguajes l using(idLenguajes)'
 
     req.getConnection((err, conn) => {
 
-        let Personas,
-            Lenguajes,
-            LenguajesPersonas;
 
         conn.query('SELECT * FROM Personas', (err, rows) => {
             if (err) {
@@ -34,7 +35,8 @@ PersonasController.list = (req, res, next) => {
                     res.render('personas', {
                         Personas,
                         Lenguajes,
-                        LenguajesPersonas
+                        LenguajesPersonas,
+                        err: { status: false, message: 'Funcando' }
                     })
                 })
 
@@ -60,12 +62,23 @@ PersonasController.add = (req, res, next) => {
     req.getConnection((err, conn) => {
         conn.query('INSERT INTO Personas set ?', [DataPersona], (err, rows) => {
 
-            
-            
+            if (err) {
+                if (err.errno == 1062) {
+                    res.render('personas', {
+                        Personas,
+                        Lenguajes,
+                        LenguajesPersonas,
+                        err: { status: true, message: "Cedula duplicada" }
+                    })
+                    return 0;
+                }
+            }
+
             id = rows.insertId;
-            
-            for(let i = 0; i < idLenguajes.length; i++){
-                conn.query('INSERT INTO Personas_has_Lenguajes set ?',[{idPersonas:id,idLenguajes:idLenguajes[i]}], (err,rows)=>{
+
+
+            for (let i = 0; i < idLenguajes.length; i++) {
+                conn.query('INSERT INTO Personas_has_Lenguajes set ?', [{ idPersonas: id, idLenguajes: idLenguajes[i] }], (err, rows) => {
 
                 })
             }
@@ -75,6 +88,10 @@ PersonasController.add = (req, res, next) => {
 
     })
 
+}
+
+PersonasController.delete = (req,res,next)=>{
+    console.log(req.params)
 }
 
 module.exports = PersonasController;

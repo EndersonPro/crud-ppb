@@ -4,6 +4,7 @@ var router = express.Router();
 var PersonasController = require('../controllers/PersonasControllers')
 
 router.get('/', PersonasController.list)
-router.post('/add', PersonasController.add)
+router.post('/', PersonasController.add)
+router.delete('/delete/:id', PersonasController.delete)
 
 module.exports = router;
