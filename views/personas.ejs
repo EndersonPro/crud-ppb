@@ -1,0 +1,81 @@
+<% include helpers/_header %>
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-7">
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">N°</th>
+                        <th scope="col">Nombres</th>
+                        <th scope="col">Apellidos</th>
+                        <th scope="col">Cedula</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (Personas) { %>
+                        <% for (var i = 0; i < Personas.length; i++ ){%>
+                            <tr>
+                                <td>
+                                    <%= (i+1) %>
+                                </td>
+                                <td>
+                                    <%= Personas[i].nombres %>
+                                </td>
+                                <td>
+                                    <%= Personas[i].apellidos %>
+                                </td>
+                                <td>
+                                    <%= Personas[i].cedula %>
+                                </td>
+                            </tr>
+                        <% } %>
+                    <% } %>
+                    <tr></tr>
+                </tbody>
+            </table>
+
+
+        </div>
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-body">
+                    <form action="personas/add" method="post">
+                        <div class="form-group">
+                            <input value="Enderson" class="form-control" type="text" name="nombres" placeholder="Nombre"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <input value="Vizcaino" class="form-control" type="text" name="apellidos" placeholder="Apellidos"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <input value="101007268" class="form-control" type="text" name="Cedula" placeholder="Cedula"
+                                required>
+                        </div>
+
+                        <% if(Lenguajes){ %>
+                            <% for(var i = 0; i < Lenguajes.length; i++ ){ %>
+                                <div class="form-check-inline">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" name="" class="form-check-input" value="">
+                                        <%= Lenguajes[i].nombre %>
+                                    </label>
+                                </div>
+                            <%}%>
+                        <%}%>
+
+
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn btn-primary">GUARDAR</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include helpers/_footer %>
