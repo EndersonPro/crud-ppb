@@ -90,8 +90,16 @@ PersonasController.add = (req, res, next) => {
 
 }
 
-PersonasController.delete = (req,res,next)=>{
-    console.log(req.params)
+PersonasController.delete = (req, res, next) => {
+    const id = req.params.id;
+
+    req.getConnection((err, conn) => {
+
+        conn.query('DELETE from Personas WHERE idPersonas = ?', [id], (err, rows) => {
+            err ? res.json(err) : res.json({ status: 'ok' })
+        })
+
+    })
 }
 
 module.exports = PersonasController;
