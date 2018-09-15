@@ -11,6 +11,7 @@
                         <th scope="col">Nombres</th>
                         <th scope="col">Apellidos</th>
                         <th scope="col">Cedula</th>
+                        <th scope="col">Lenguajes</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
@@ -29,6 +30,9 @@
                                 </td>
                                 <td>
                                     <%= Personas[i].cedula %>
+                                </td>
+                                <td>
+
                                 </td>
                             </tr>
                         <% } %>
@@ -60,7 +64,7 @@
                             <% for(var i = 0; i < Lenguajes.length; i++ ){ %>
                                 <div class="form-check-inline">
                                     <label class="form-check-label">
-                                        <input type="checkbox" name="" class="form-check-input" value="">
+                                        <input type="checkbox" name="idLenguajes" value="<%= Lenguajes[i].idLenguajes %>" class="form-check-input" value="">
                                         <%= Lenguajes[i].nombre %>
                                     </label>
                                 </div>

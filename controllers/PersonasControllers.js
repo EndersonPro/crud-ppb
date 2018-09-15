@@ -11,9 +11,9 @@ PersonasController.list = (req, res, next) => {
             if (err) {
                 res.json(err);
             }
-            
+
             Personas = rows
-            
+
             conn.query('SELECT * FROM Lenguajes', (err, rows) => {
                 if (err) {
                     res.json(err)
@@ -33,7 +33,15 @@ PersonasController.list = (req, res, next) => {
 }
 
 PersonasController.add = (req, res, next) => {
-    console.log(req.body)
+
+    const data = req.body
+
+    req.getConnection((err, conn) => {
+        conn.query('INSERT INTO Personas set ?', [data], (err, rows) => {
+            res.redirect('/personas')
+        })
+    })
+
 }
 
 module.exports = PersonasController;
